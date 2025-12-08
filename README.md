@@ -1,4 +1,4 @@
-# Task 2
+# Task 2 Methods
 Simulating mutations and testing variant callers.
 
 ## Part 1: Validating Data
