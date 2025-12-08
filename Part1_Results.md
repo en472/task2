@@ -38,4 +38,8 @@ And in E coli:
 <img width="327" height="752" alt="image" src="https://github.com/user-attachments/assets/aed27a7c-a0e9-4639-8f15-a0d3c3d64f86" />
 
 ## Data Access
-As each run of this pipeline produces different random mutations, the files used for this specific run are available in folder Part1_Data for reproducibility. 
+As each run of this pipeline produces different random mutations, the files used for this specific run are available in folder Part1_Data for reproducibility. (the FASTQ files could not be included as they are too large for Github, but a screenshot of the first few Plasmodium reads is shown below:)
+
+<img width="1251" height="420" alt="image" src="https://github.com/user-attachments/assets/6f6e59e2-7e28-4736-9a70-fd707cff6da8" />
+
+
