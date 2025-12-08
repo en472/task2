@@ -35,5 +35,38 @@ An index of the sequence is then generated, and a random selection of points (us
 
 The FASTA file header is edited to FASTQ format, and random quality scores are generated (these do not have meaning, but were included for the sake of realistic formating). The output file is written as standard FASTQ format with four lines: a unique ID per read, the read sequence, a '+' symbol, and the quality scores.
 
+### Compressing the FASTQ File:
+
+Although this step is not absolutely necessary, compressing the (very large) FASTQ file allows for easier sharing and storage, which is good practice for future projects. This project used the open-source software gzip within a command line conda envrionment to compress the file, using the command
+
+  > gzip filename.fq
+
+To output the file in filename.fq.gz format. This allowed for easier processing during the next stages of the project.
+
+### Mapping the Reads:
+
+minimap2 was used to map the simulated reads to the original reference genome. 
+
+  > minimap2 -a reference.fasta reads.fq.gz | samtools view -h -F 0x900 - | samtools sort -0 bam > output.bam
+
+^ The above command was used to map and sort (samtools) the reads relative to the reference genome, resulting in a BAM file. This was applied to the both the Plasmodium falciparum and the Escherichia Coli genome. The samtools flagstat function was applied to check for errors:
+
+  > samtools flagstat output.bam
+
+Next, bcftools was used to organise the output into .vcf format to list the detected mutations. 
+
+  > bcftools mpileup -0u -f reference.fasta output.bam | bcftools call -ve -0v > output.vcf
+
+The .vcf can be viewed as a text document within the terminal:
+
+  > less -S output.vcf
+
+Or can be indexed via samtools to enable viewing of the pileups reative to the sequence. 
+
+  > samtools index output.vcf
+
+  > samtools tview output.bam reference.fasta
+
+
 
 
