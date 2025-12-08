@@ -29,3 +29,11 @@ Finally, the mutated sequence and changelog are output.
 ### Simulating Reads:
 reads.py contains function reads(), which takes in a .txt file in fasta format, a desired read length, and a desired average depth, and will return a fastq file in .fq format. 
 
+The function takes in the sequence file, as well as a desired read length and read depth. It begins by reading in the sequence and spliting the header from the nucleotide codes. The number of reads to generated is calculated by dividing the rounded sequence length by the input read length and then multiplying by the depth, to approximate the number of reads required to reach the desired depth.
+
+An index of the sequence is then generated, and a random selection of points (using random.choices() from the random package) are selected, dependent on the number or reads to be generated. The points are then extended to cover the full read lengths, and any points which result in reads hanging over the end of the genome are set to the latest possible read. The reads are then extracted from the main sequence using the index. 
+
+The FASTA file header is edited to FASTQ format, and random quality scores are generated (these do not have meaning, but were included for the sake of realistic formating). The output file is written as standard FASTQ format with four lines: a unique ID per read, the read sequence, a '+' symbol, and the quality scores.
+
+
+
