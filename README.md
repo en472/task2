@@ -24,7 +24,7 @@ As before, a random point is selected, and the relative index point if extracted
 As iterating over the genome 300 times would be computationally expensive, all 300 SNP nucleotides are chosen simultaneously from the (filtered so as to prevent SNPs of insertion seqeunces) reference index. Rather than looping through all 300 points and selecting a SNP for each nucleotide, 300 random bases are generated at once. These bases are then compared in a while loop/if statement combination, where SNPs are again randomly chosen if they are the same as the original nucleotide. The idea behind this is that there are fewer changes to be made to the sequence, as each time, you would expect only ~25% of SNPs to be the same as the orignal nucelotide. By only updating SNPs that match, and preventing for-loop iteration across the entire genome or across 300 nucleotides, this should run more efficiently.
 The SNPs are then applied to the genome, and the change log is updated.
 
-Finally, the mutated sequence and changelog are output. 
+Finally, the mutated sequence and changelog (ordered by coordinate) are output. 
 
 ### Simulating Reads:
 reads.py contains function reads(), which takes in a .txt file in fasta format, a desired read length, and a desired average depth, and will return a fastq file in .fq format. 
@@ -66,6 +66,14 @@ Or can be indexed via samtools to enable viewing of the pileups reative to the s
   > samtools index output.vcf
 
   > samtools tview output.bam reference.fasta
+
+### Comparing Simulated vs. Detected Mutations:
+
+After the variant callers were applied, the resulting .vcf files were read into python to be compared with the original change log text files that were made when the nutations were generated. vcf_compare.py takes in both of these files and performs a comparison to return values for both precision and recall.  
+
+The .vcf file is first read in as a list, where each entry represents a row of the file. Metadata is removed by filtering out lines with begin with '##' and each line is spliced by the '\t' tab delimiters present to extract only the first few columns (which contain the co-ordinate on the chromosome, and the detected mutations). The tab delimiters are removed from the strings. Next, the change log is read in, and special characters '{}' present from the original dictionary form are removed via the re package. At this stage, both the change log and the vcf file are list objects, where each entry contains the chromosome location, and the mutation.
+
+Each line of both lists are then compared in a simple for-loop which iterates through each line (as both are ordered by coordinate) and  records the number of identical matches. Precision is calculated as the % of matching mutations found out of the original change log, and recall is calculated as the number of mutations detected by the variant caller divided by the true number of mutations simulated. 
 
 
 
