@@ -3,6 +3,8 @@ Simulating mutations and testing variant callers.
 
 ## Part 1: Validating Data
 
+Note: this scripts do not work on the command line, you need to load them and manually edit in filenames (and change the output file names if desired) in order to use them.
+
 ### Making Mutations:
 mutations.py contains a function called mutations(), which takes in a .fasta file filename e.g. mutations('name.fasta') and outputs both a change log and a mutated genome in .txt format.
 
