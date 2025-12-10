@@ -75,6 +75,22 @@ The .vcf file is first read in as a list, where each entry represents a row of t
 
 Each line of both lists are then compared in a simple for-loop which iterates through each line (as both are ordered by coordinate) and  records the number of identical matches. Precision is calculated as the % of matching mutations found out of the original change log, and recall is calculated as the number of mutations detected by the variant caller divided by the true number of mutations simulated. 
 
+## Part 2: Building a Pipeline
 
+### Pipeline Script:
+
+Python was used to build a bash-based pipeline. It is important to note that the pipeline assumes that python and conda are already correctly installed, and will only run on devices running Linux platform (it may work in others but the packages have problems with installation and often cause errors).
+
+The pipeline works by creating two different conda environments, and installing that packages required. It then uses python f script (f''' 'bash command' ''') to turn a string into a working command, and to execute the pipeline. The reason for creating two conda environments (even though this means the pipeline can take a long time to run) is because the two variant callers, bfctools and snippy, appear to require different versions of python, as well as variations in packages. 
+
+The script also contained checking functions to ensure that each stage runs successfully. It does so by checking the 'returncode' for each stage, as this should be empty as long as no errors have been returned. It also checks that the output file for bcftools is present using the os package to check that both the path is there and the file is not empty.
+
+#### Bcftools:
+The conda environment is created with packages minimap2, samtools, bcftools, and bedtools in their most recent versions (as of 10/12/2025). This is preformed via the sys packages' subprocess.run() function. After, python f string format (previously mentioned) is used to create a string containing the bash pipeline command, which is executed via subprocess.run().
+
+#### Snippy:
+The conda environment is created with python version 3.7.0 and packages samtools, bcftools, bedtools, snpEff version 4.3, snippy version 3.2 and minimap. Next, samtools is downgraded to version 1.3 in a separate bash command (NO idea why this happened, but this is the only way that it seemed to work for some reason). Finally, as before, an f string was used to chain together a bach command to run snippy, which creates a new directory called snippy_results containing the snps.vcf results file. 
+
+### Combining VCFs:
 
 
