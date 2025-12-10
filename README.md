@@ -79,7 +79,7 @@ Each line of both lists are then compared in a simple for-loop which iterates th
 
 ### Pipeline Script:
 
-Python was used to build a bash-based pipeline. It is important to note that the pipeline assumes that python and conda are already correctly installed, and will only run on devices running Linux platform (it may work in others but the packages have problems with installation and often cause errors).
+Python was used to build a bash-based pipeline in a script called pipeline.py. It is important to note that the pipeline assumes that python and conda are already correctly installed, and will only run on devices running Linux platform (it may work in others but the packages have problems with installation and often cause errors).
 
 The pipeline works by creating two different conda environments, and installing that packages required. It then uses python f script (f''' 'bash command' ''') to turn a string into a working command, and to execute the pipeline. The reason for creating two conda environments (even though this means the pipeline can take a long time to run) is because the two variant callers, bfctools and snippy, appear to require different versions of python, as well as variations in packages. 
 
