@@ -18,7 +18,7 @@ The files from running both the real E.coli data and the simulated P. falciparum
 
 ## Discussion:
 
-It is difficult to determine how differently the two variant callers perform without physically trawling through the data. Direct comparison of the 'quality scores' for each mutation identified are not easily comparable as they hae different methods of scoring quality. Generally, both variant callers picked up the same snps, although returned quite different results for INDELS, presumably as these are more complex to identify. 
+It is difficult to determine how differently the two variant callers perform without physically trawling through the data. Direct comparison of the 'quality scores' for each mutation identified are not easily comparable as they hae different methods of scoring quality. Generally, both variant callers picked up the same snps, although returned quite different results for INDELS, presumably as these are more complex to identify. The pipeline ran on both the real and simulated samples (the simulated reverse reads had to be generated separately by making changes to reads.py - I wanted to update this for part 1 but unfortunately ran out of time), and successfully generated results. 
 
 ### NOTE: 
 With more time on this project, it would have been interesting to properly explore and compare the mutations discovered by bcftools and snippy in the pipeline through something like samtools tview or IGV viewer, to check wether the mutatations reported are trustworthy. Comparing between the real vs simulated data could have been a way to observe how each variant caller performed with different types of mutations (INDELs vs SNPs) and therfore identify strenghts/weaknesses with each one. 
