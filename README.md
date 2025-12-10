@@ -92,5 +92,5 @@ The conda environment is created with packages minimap2, samtools, bcftools, and
 The conda environment is created with python version 3.7.0 and packages samtools, bcftools, bedtools, snpEff version 4.3, snippy version 3.2 and minimap. Next, samtools is downgraded to version 1.3 in a separate bash command (NO idea why this happened, but this is the only way that it seemed to work for some reason). Finally, as before, an f string was used to chain together a bach command to run snippy, which creates a new directory called snippy_results containing the snps.vcf results file. 
 
 ### Combining VCFs:
-
+The function vcf_combine defined in vcf_combine.py was used to generate a list of mutations detected from both bcftools and snippy. It stripped each line of both vcf files down to just the nucleotide point, and the nucleotide mutations detected, and then formatted them for direct comparison. After removing duplicates, a combined vcf file was created. 
 
