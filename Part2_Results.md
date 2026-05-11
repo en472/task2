@@ -8,7 +8,7 @@ The pipeline can be run on Linux machines using
 
   > python3 pipeline.py ref.fasta reads1.fastq reads2.fastq
 
-The pipeline with indicate which stage it is running based on printed statements such as: 'creating conda environment for minimap/bcf tools route...'
+The pipeline will indicate which stage it is running based on printed statements such as: 'creating conda environment for minimap/bcf tools route...'
 
 ## Output:
 
